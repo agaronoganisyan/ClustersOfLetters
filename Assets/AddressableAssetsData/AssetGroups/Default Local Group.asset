@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 08f024f3f24af41dfaf9d4a7dff157e4
   m_SerializeEntries:
   - m_GUID: 517aab83b9be54c61823e62395d6dcc2
-    m_Address: CanvasView_Match
+    m_Address: CanvasView_Gameplay
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

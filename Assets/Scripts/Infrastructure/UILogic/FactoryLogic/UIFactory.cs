@@ -15,7 +15,7 @@ namespace Infrastructure.UILogic.FactoryLogic
         private IAssetsProvider _assetsProvider;
         
         private readonly string _lobbyCanvasAddress = "CanvasView_Lobby";
-        private readonly string _matchCanvasAddress = "CanvasView_Match";
+        private readonly string _matchCanvasAddress = "CanvasView_Gameplay";
         private readonly string _debriefingCanvasAddress = "CanvasView_Debriefing";
 
         public UIFactory(DiContainer container)
