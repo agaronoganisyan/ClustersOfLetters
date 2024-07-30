@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+
 namespace Infrastructure.GameStateLogic
 {
     public interface IGameStateMachine

@@ -5,6 +5,7 @@ using Infrastructure.StateMachineLogic.Async;
 using Infrastructure.UILogic.FactoryLogic;
 using Infrastructure.UILogic.ViewLogic;
 using Infrastructure.UILogic.ViewModelLogic;
+using UnityEngine;
 using Zenject;
 
 namespace Infrastructure.UILogic.UIStateMachineLogic
