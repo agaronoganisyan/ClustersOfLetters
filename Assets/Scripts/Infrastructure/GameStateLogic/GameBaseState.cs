@@ -21,11 +21,17 @@ namespace Infrastructure.GameStateLogic
         
         protected readonly IStateMachine<GameState> _stateMachine;
         protected IUIStateMachine _uiStateMachine;
+
+        protected DiContainer _container;
+        
+        protected bool _isSetuped;
         
         protected GameBaseState(IStateMachine<GameState> stateMachine, DiContainer container)
         {
             _stateMachine = stateMachine;
             _uiStateMachine = container.Resolve<IUIStateMachine>();
+
+            _container = container;
         }
 
         public virtual async UniTask Enter()

@@ -27,12 +27,11 @@ namespace ClusterGameplayLogic.InputFieldLogic
             _position = new ReactiveProperty<Vector2>();
         }
 
-        public override bool TryToAddCluster(ClusterViewModel clusterViewModel)
+        public override bool IsCanAddCluster(ClusterViewModel clusterViewModel)
         {
             if (_isFull) return false;
-            if (clusterViewModel.Model.Length + _currentLength > 6) return false;
+            if (clusterViewModel.Model.Length + _currentLength > MaxLength) return false;
             
-            // AddCluster(clusterViewModel);
             return true;
         }
 

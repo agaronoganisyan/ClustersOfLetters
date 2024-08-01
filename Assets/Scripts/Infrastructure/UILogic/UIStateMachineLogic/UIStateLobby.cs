@@ -1,4 +1,5 @@
 using Infrastructure.StateMachineLogic;
+using Infrastructure.UILogic.LobbyLogic;
 using Infrastructure.UILogic.ViewModelLogic;
 using Zenject;
 

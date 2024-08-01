@@ -13,29 +13,22 @@ namespace ClusterGameplayLogic.ClusterLogic.ListLogic
 
         private CompositeDisposable _disposable;
 
-        private RectTransform _rectTransform;
+        [SerializeField] private RectTransform _container;
 
         private const float Spacing = 20;
-        private readonly Vector3 _startPos = Vector2.zero;
-        private readonly Vector3 _offsetVec = Vector3.right;
         
         [Inject]
         private void Construct(DiContainer container)
         {
             _viewModel = container.Resolve<ClustersListViewModel>();
             _clustersViewFactory = container.Resolve<IClustersViewFactory>();
-
-            _rectTransform = GetComponent<RectTransform>();
             
             _disposable = new CompositeDisposable();
         }
         
         private void Start()
         {
-            _viewModel.Clusters.ObserveCountChanged().Subscribe((value) => ReorderClusters(_viewModel.Clusters)).AddTo(_disposable);
-            
-            // _viewModel.Clusters.ObserveRemove().
-            //     Subscribe((value) => ClusterRemoved(value)).AddTo(_disposable);
+            _viewModel.OnChanged.Subscribe((value) => ReorderClusters(_viewModel.Clusters)).AddTo(_disposable);
 
             _viewModel.OnSetuped.Subscribe(CreateClusters).AddTo(_disposable);
 
@@ -55,7 +48,7 @@ namespace ClusterGameplayLogic.ClusterLogic.ListLogic
         private void ProcessClusters(IReadOnlyReactiveCollection<ClusterViewModel> clusters, bool createClusters)
         {
             int numAllItems = clusters.Count;
-            Vector2 size = new Vector2(0, _rectTransform.sizeDelta.y);
+            Vector2 size = new Vector2(0, _container.sizeDelta.y);
             Vector2 origin = new Vector2(Spacing, 0);
 
             for (int i = 0; i < numAllItems; i++)
@@ -68,16 +61,17 @@ namespace ClusterGameplayLogic.ClusterLogic.ListLogic
                     _clustersViewFactory.Get(clusters[i]);
                 }
 
-                clusters[i].SetParentContainerAndPosition(_rectTransform, origin);
+                clusters[i].SetParentContainerAndPosition(_container, origin);
                 origin += new Vector2(clusters[i].Model.Length * ClusterStaticData.BaseLength + Spacing, 0);
             }
 
-            _rectTransform.sizeDelta = size;
-            _rectTransform.anchoredPosition = new Vector3(0, _rectTransform.anchoredPosition.y);
+            _container.sizeDelta = size;
+            
+            if (createClusters) _container.anchoredPosition = new Vector3(0, _container.anchoredPosition.y);
         }
 
 
-        public override ClusterContainerViewModel GetClusterContainerViewModel()
+        protected override ClusterContainerViewModel GetClusterContainerViewModel()
         {
             return _viewModel;
         }

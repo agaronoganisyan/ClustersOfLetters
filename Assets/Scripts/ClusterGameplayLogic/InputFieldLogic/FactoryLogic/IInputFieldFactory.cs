@@ -6,5 +6,6 @@ namespace ClusterGameplayLogic.InputFieldLogic.FactoryLogic
     {
         InputFieldView Get(InputFieldViewModel viewModel);
         UniTask Setup();
+        void ReturnAllBack();
     }
 }

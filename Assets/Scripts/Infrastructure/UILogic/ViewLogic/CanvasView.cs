@@ -14,7 +14,6 @@ namespace Infrastructure.UILogic.ViewLogic
         private Canvas _canvas;
         private GraphicRaycaster _graphicRaycaster;
 
-        protected IGameStateMachine _gameStateMachine;
         protected CanvasViewModel _viewModel;
         
         private CompositeDisposable _disposable;
@@ -22,8 +21,6 @@ namespace Infrastructure.UILogic.ViewLogic
         [Inject]
         public virtual void Construct(DiContainer container)
         {
-            _gameStateMachine = container.Resolve<IGameStateMachine>();
-            
             _disposable = new CompositeDisposable();
         }
         
@@ -36,7 +33,7 @@ namespace Infrastructure.UILogic.ViewLogic
             _viewModel.OnHidden.Subscribe((value) => Hide()).AddTo(_disposable);
         }
 
-        private void Show()
+        protected virtual void Show()
         {
             _canvas.enabled = true;
             _graphicRaycaster.enabled = true;

@@ -10,13 +10,11 @@ namespace ClusterGameplayLogic.InputFieldLogic.FactoryLogic
     public class InputFieldViewFactory <T> : ObjectFactory<T> where T : MonoBehaviour, Infrastructure.PoolLogic.IPoolable<T>
     {
         private IAssetsProvider _assetsProvider;
-
         
         public InputFieldViewFactory(DiContainer container)
         {
             _pool = container.Resolve<ObjectPool<T>>();
             _assetsProvider = container.Resolve<IAssetsProvider>();
-            
         }
         
         public override async UniTask Setup(string addressToPrefab)

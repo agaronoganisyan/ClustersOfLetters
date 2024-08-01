@@ -7,5 +7,6 @@ namespace ClusterGameplayLogic.ClusterLogic.FactoryLogic
     {
         ClusterView Get(ClusterViewModel viewModel);
         UniTask Setup();
+        void ReturnAllBack();
     }
 }

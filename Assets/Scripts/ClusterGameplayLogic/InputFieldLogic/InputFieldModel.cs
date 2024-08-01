@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using ClusterGameplayLogic.ClusterLogic;
 using Zenject;
 
@@ -34,6 +35,18 @@ namespace ClusterGameplayLogic.InputFieldLogic
         public void RemoveCluster(ClusterModel cluster)
         {
             Clusters.Remove(cluster);
+        }
+
+        public string GetWord()
+        {
+            StringBuilder wordBuilder = new StringBuilder();
+
+            foreach (var cluster in Clusters)
+            {
+                wordBuilder.Append(cluster.Value);
+            }
+
+            return wordBuilder.ToString();
         }
     }
 }

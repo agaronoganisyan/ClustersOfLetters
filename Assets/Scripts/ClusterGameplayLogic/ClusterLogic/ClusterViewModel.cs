@@ -1,5 +1,5 @@
 using ClusterGameplayLogic.ClusterLogic.ContainerLogic;
-using Infrastructure.UILogic.ViewModelLogic;
+using Infrastructure.UILogic.GameplayLogic;
 using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,8 +11,6 @@ namespace ClusterGameplayLogic.ClusterLogic
     {
         public ClusterModel Model { get; }
         
-        public IReadOnlyReactiveProperty<int> Index => _index;
-        private ReactiveProperty<int> _index;
         public IReadOnlyReactiveProperty<Transform> ParentTransform => _parentTransform;
         private ReactiveProperty<Transform> _parentTransform;
         public IReadOnlyReactiveProperty<Vector2> Position => _position;
@@ -37,8 +35,7 @@ namespace ClusterGameplayLogic.ClusterLogic
             
             _parentTransform = new ReactiveProperty<Transform>();
             _position = new ReactiveProperty<Vector2>();
-            _index = new ReactiveProperty<int>();
-
+            
             OnDragStarted = new ReactiveCommand<ClusterViewModel>();
             OnDragFinished = new ReactiveCommand<PointerEventData>();
         }
@@ -92,11 +89,6 @@ namespace ClusterGameplayLogic.ClusterLogic
         private void SetPosition(Vector2 position)
         {
             _position.Value = position;
-        }
-        
-        public void SetIndex(int index)
-        {
-            _index.Value = index;
         }
         
         public void BeginDrag()

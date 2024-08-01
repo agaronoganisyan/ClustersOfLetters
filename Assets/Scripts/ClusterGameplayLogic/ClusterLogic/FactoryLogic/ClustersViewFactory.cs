@@ -2,7 +2,6 @@ using System;
 using Cysharp.Threading.Tasks;
 using Infrastructure.AssetManagementLogic;
 using UniRx;
-using UnityEngine;
 using Zenject;
 
 namespace ClusterGameplayLogic.ClusterLogic.FactoryLogic
@@ -44,25 +43,32 @@ namespace ClusterGameplayLogic.ClusterLogic.FactoryLogic
 
             SetAsSetuped();
         }
-        
+
+        public void ReturnAllBack()
+        {
+            _clusterLength2Factory.ReturnAllObjectToPool();
+            _clusterLength3Factory.ReturnAllObjectToPool();
+            _clusterLength4Factory.ReturnAllObjectToPool();
+        }
+
         public ClusterView Get(ClusterViewModel viewModel)
         {
             if (viewModel.Model.Length == 2)
             {
                 return _clusterLength2Factory.Get(viewModel);
             }
-            else if (viewModel.Model.Length == 3)
+
+            if (viewModel.Model.Length == 3)
             {
                 return _clusterLength3Factory.Get(viewModel);
             }
-            else if (viewModel.Model.Length == 4)
+
+            if (viewModel.Model.Length == 4)
             {
                 return _clusterLength4Factory.Get(viewModel);
             }
-            else
-            {
-                throw new ArgumentOutOfRangeException(null);
-            }
+
+            throw new ArgumentOutOfRangeException(null);
         }
         
         

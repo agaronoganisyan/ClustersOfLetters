@@ -26,9 +26,11 @@ namespace ClusterGameplayLogic.ClusterLogic.ListLogic
                 _clusters.Add(_clustersModel.Clusters[i]);
                 _clustersModel.Clusters[i].SetInitClusterContainer(this);
             }
+
+            OnSetuped?.Execute(_clusters);
         }
 
-        public override bool TryToAddCluster(ClusterViewModel clusterViewModel)
+        public override bool IsCanAddCluster(ClusterViewModel clusterViewModel)
         {
             return true;
         }

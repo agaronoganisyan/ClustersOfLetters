@@ -46,5 +46,11 @@ namespace Infrastructure.GameStateLogic
             
             _uiStateMachine.SwitchState(UIState.Gameplay);
         }
+
+        public override async UniTask Exit()
+        {
+            _inputFieldFactory.ReturnAllBack();
+            _clustersViewFactory.ReturnAllBack();
+        }
     }
 }

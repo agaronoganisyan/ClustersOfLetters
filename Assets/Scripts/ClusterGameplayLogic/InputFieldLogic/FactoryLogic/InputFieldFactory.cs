@@ -29,6 +29,11 @@ namespace ClusterGameplayLogic.InputFieldLogic.FactoryLogic
             SetAsSetuped();
         }
 
+        public void ReturnAllBack()
+        {
+            _viewFactory.ReturnAllObjectToPool();
+        }
+
         public InputFieldView Get(InputFieldViewModel viewModel)
         {
             return _viewFactory.Get(viewModel);

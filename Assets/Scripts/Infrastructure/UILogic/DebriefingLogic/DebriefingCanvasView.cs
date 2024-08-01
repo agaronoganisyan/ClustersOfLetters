@@ -1,8 +1,7 @@
-using Infrastructure.GameStateLogic;
-using Infrastructure.UILogic.ViewModelLogic;
+using Infrastructure.UILogic.ViewLogic;
 using Zenject;
 
-namespace Infrastructure.UILogic.ViewLogic
+namespace Infrastructure.UILogic.DebriefingLogic
 {
     public class DebriefingCanvasView : CanvasView
     {
@@ -12,11 +11,6 @@ namespace Infrastructure.UILogic.ViewLogic
             
             _viewModel = container.Resolve<DebriefingCanvasViewModel>();
             _viewModel.SetView(this);
-        }
-        
-        public void OnToLobby()
-        {
-            _gameStateMachine.SwitchState(GameState.Lobby);
         }
     }
 }

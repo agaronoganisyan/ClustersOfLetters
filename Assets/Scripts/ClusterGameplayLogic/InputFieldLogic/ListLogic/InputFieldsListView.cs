@@ -9,19 +9,15 @@ namespace ClusterGameplayLogic.InputFieldLogic.ListLogic
     {
         private InputFieldsListViewModel _viewModel;
         private IInputFieldFactory _inputFieldViewFactory;
-        private InputFieldsModel _inputFieldsModel;
         private RectTransform _rectTransform;
         private CompositeDisposable _disposable;
 
         private const float Spacing = 25;
-        private readonly Vector3 _startPos = Vector2.zero;
-        private readonly Vector3 _offsetVec = Vector3.down;
         
         [Inject]
         private void Construct(DiContainer container)
         {
             _inputFieldViewFactory = container.Resolve<IInputFieldFactory>();
-            _inputFieldsModel = container.Resolve<InputFieldsModel>();
             _viewModel = container.Resolve<InputFieldsListViewModel>();
             
             _rectTransform = GetComponent<RectTransform>();
@@ -31,10 +27,6 @@ namespace ClusterGameplayLogic.InputFieldLogic.ListLogic
         
         private void Start()
         {
-            _viewModel.InputFields.ObserveCountChanged().
-                Subscribe((value) => CreateInputFields(_viewModel.InputFields)).AddTo(_disposable);
-
-            
             _viewModel.OnSetuped.Subscribe(CreateInputFields).AddTo(_disposable);
 
             CreateInputFields(_viewModel.InputFields);
@@ -48,10 +40,12 @@ namespace ClusterGameplayLogic.InputFieldLogic.ListLogic
             
             for (int i = 0; i < numAllItems; i++)
             {
-                _inputFieldViewFactory.Get(fields[i]);
-                
+                InputFieldView view = _inputFieldViewFactory.Get(fields[i]);
+                view.transform.SetParent(_rectTransform); //намеренно добавлено, потому что иначе какой-то глюк c UniRx 
+                view.GetComponent<RectTransform>().anchoredPosition = origin; //при размещении первого поля
+
                 fields[i].SetParentAndPosition(_rectTransform, origin);
-                //Debug.Log($"fields[i] {i}");
+
                 origin -= new Vector2(0, InputFieldStaticData.BaseHeight + Spacing);
             }
         }

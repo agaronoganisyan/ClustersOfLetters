@@ -30,6 +30,8 @@ namespace ClusterGameplayLogic.InputFieldLogic.ListLogic
             {
                 _inputFields.Add(_inputFieldsModel.InputFields[i]);
             }
+            
+            OnSetuped?.Execute(_inputFields);
         }
     }
 }

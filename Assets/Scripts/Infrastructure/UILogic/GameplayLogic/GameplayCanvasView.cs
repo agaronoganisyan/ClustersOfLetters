@@ -1,7 +1,7 @@
-using Infrastructure.UILogic.ViewModelLogic;
+using Infrastructure.UILogic.ViewLogic;
 using Zenject;
 
-namespace Infrastructure.UILogic.ViewLogic
+namespace Infrastructure.UILogic.GameplayLogic
 {
     public class GameplayCanvasView : CanvasView
     {

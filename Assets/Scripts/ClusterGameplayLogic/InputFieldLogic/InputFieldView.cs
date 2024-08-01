@@ -4,14 +4,11 @@ using ClusterGameplayLogic.ClusterLogic.ContainerLogic;
 using UniRx;
 using UnityEngine;
 using Zenject;
-using Random = UnityEngine.Random;
 
 namespace ClusterGameplayLogic.InputFieldLogic
 {
     public class InputFieldView : ClusterContainerView, Infrastructure.PoolLogic.IPoolable<InputFieldView>
     {
-        private DiContainer _container;
-
         private InputFieldViewModel _viewModel;
 
         private RectTransform _rectTransform;
@@ -19,26 +16,20 @@ namespace ClusterGameplayLogic.InputFieldLogic
         private CompositeDisposable _disposable;
 
         private Action<InputFieldView> _returnToPool;
-
-        private float _id;
         
         [Inject]
-        private void Construct(DiContainer container)
+        private void Construct()
         {
-            _container = container;
-            
             _rectTransform = GetComponent<RectTransform>();
         }
 
         public void Setup(InputFieldViewModel viewModel)
         {
-            _id = Random.Range(0.0001f, 0.9999f);
-            
             _disposable?.Dispose();
             _disposable = new CompositeDisposable();
 
             _viewModel = viewModel;
-            _viewModel.Clusters.ObserveCountChanged().Subscribe((value) => ReorderField(_viewModel.Clusters)).AddTo(_disposable);
+            _viewModel.OnChanged.Subscribe((value) => ReorderField(_viewModel.Clusters)).AddTo(_disposable);
             
             _viewModel.ParentTransform.Subscribe((value) => SetParent(value)).AddTo(_disposable);
             _viewModel.Position.Subscribe((value) => SetPosition(value)).AddTo(_disposable);
@@ -68,7 +59,7 @@ namespace ClusterGameplayLogic.InputFieldLogic
             _rectTransform.anchoredPosition = position;
         }
 
-        public override ClusterContainerViewModel GetClusterContainerViewModel()
+        protected override ClusterContainerViewModel GetClusterContainerViewModel()
         {
             return _viewModel;
         }
