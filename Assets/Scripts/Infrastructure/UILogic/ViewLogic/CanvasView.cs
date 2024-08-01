@@ -10,6 +10,7 @@ namespace Infrastructure.UILogic.ViewLogic
 {
     public abstract class CanvasView : MonoBehaviour, IDisposable
     {
+        public Canvas Canvas => _canvas;
         private Canvas _canvas;
         private GraphicRaycaster _graphicRaycaster;
 

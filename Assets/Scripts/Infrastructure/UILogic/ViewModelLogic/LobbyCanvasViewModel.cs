@@ -1,6 +1,6 @@
 namespace Infrastructure.UILogic.ViewModelLogic
 {
-    public class MatchViewModel : CanvasViewModel
+    public class LobbyCanvasViewModel : CanvasViewModel
     {
         
     }

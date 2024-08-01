@@ -1,22 +1,19 @@
+using ClusterGameplayLogic.ClusterLogic.ContainerLogic;
 using UniRx;
 using Zenject;
 
 namespace ClusterGameplayLogic.ClusterLogic.ListLogic
 {
-    public class ClustersListViewModel
+    public class ClustersListViewModel : ClusterContainerViewModel
     {
-        public IReadOnlyReactiveCollection<ClusterViewModel> Clusters => _clusters;
-        private ReactiveCollection<ClusterViewModel> _clusters;
-
         public ReactiveCommand<IReadOnlyReactiveCollection<ClusterViewModel>> OnSetuped;
         
         private ClustersModel _clustersModel;
         
-        public ClustersListViewModel(DiContainer container)
+        public ClustersListViewModel(DiContainer container) : base(container)
         {
             _clustersModel = container.Resolve<ClustersModel>();
             
-            _clusters = new ReactiveCollection<ClusterViewModel>();
             OnSetuped = new ReactiveCommand<IReadOnlyReactiveCollection<ClusterViewModel>>();
         }
 
@@ -26,18 +23,14 @@ namespace ClusterGameplayLogic.ClusterLogic.ListLogic
             
             for (int i = 0; i < _clustersModel.Clusters.Count; i++)
             {
-                _clusters.Add(new ClusterViewModel(_clustersModel.Clusters[i]));
+                _clusters.Add(_clustersModel.Clusters[i]);
+                _clustersModel.Clusters[i].SetInitClusterContainer(this);
             }
         }
 
-        public void RemoveCluster(ClusterViewModel cluster)
+        public override bool TryToAddCluster(ClusterViewModel clusterViewModel)
         {
-            
-        }
-
-        public void AddCluster(ClusterViewModel cluster)
-        {
-            
+            return true;
         }
     }
 }

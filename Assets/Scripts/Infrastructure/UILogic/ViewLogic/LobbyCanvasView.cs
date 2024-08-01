@@ -4,13 +4,14 @@ using Zenject;
 
 namespace Infrastructure.UILogic.ViewLogic
 {
-    public class LobbyView : CanvasView
+    public class LobbyCanvasView : CanvasView
     {
         public override void Construct(DiContainer container)
         {
             base.Construct(container);
             
-            _viewModel = container.Resolve<LobbyViewModel>();
+            _viewModel = container.Resolve<LobbyCanvasViewModel>();
+            _viewModel.SetView(this);
         }
 
         public void OnStartMatch()

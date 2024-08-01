@@ -1,22 +1,27 @@
 using System.Collections.Generic;
+using Zenject;
 
 namespace ClusterGameplayLogic.ClusterLogic
 {
     public class ClustersModel
     {
-        public List<ClusterModel> Clusters { get; }
+        public List<ClusterViewModel> Clusters { get; }
 
-        public ClustersModel()
+        private DiContainer _container;
+        
+        public ClustersModel(DiContainer container)
         {
-            Clusters = new List<ClusterModel>();
+            _container = container;
+            
+            Clusters = new List<ClusterViewModel>();
         }
-
+        
         public void Setup(List<ClusterModel> clusters)
         {
             Clusters.Clear();
             for (int i = 0; i < clusters.Count; i++)
             {
-                Clusters.Add(clusters[i]);
+                Clusters.Add(new ClusterViewModel(clusters[i], _container));
             }
         }
     }

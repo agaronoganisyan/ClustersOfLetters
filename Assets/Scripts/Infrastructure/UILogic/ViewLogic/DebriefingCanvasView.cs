@@ -4,13 +4,14 @@ using Zenject;
 
 namespace Infrastructure.UILogic.ViewLogic
 {
-    public class DebriefingView : CanvasView
+    public class DebriefingCanvasView : CanvasView
     {
         public override void Construct(DiContainer container)
         {
             base.Construct(container);
             
-            _viewModel = container.Resolve<DebriefingViewModel>();
+            _viewModel = container.Resolve<DebriefingCanvasViewModel>();
+            _viewModel.SetView(this);
         }
         
         public void OnToLobby()

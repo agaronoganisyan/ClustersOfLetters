@@ -1,6 +1,6 @@
 namespace Infrastructure.UILogic.ViewModelLogic
 {
-    public class DebriefingViewModel : CanvasViewModel
+    public class DebriefingCanvasViewModel : CanvasViewModel
     {
         
     }

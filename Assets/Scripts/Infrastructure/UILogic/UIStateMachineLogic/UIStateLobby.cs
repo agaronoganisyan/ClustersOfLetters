@@ -8,7 +8,7 @@ namespace Infrastructure.UILogic.UIStateMachineLogic
     {
         public UIStateLobby(UIState state, IStateMachine<UIState> stateMachine, DiContainer container) : base(state, stateMachine, container)
         {
-            _viewModel = container.Resolve<LobbyViewModel>();
+            _viewModel = container.Resolve<LobbyCanvasViewModel>();
         }
     }
 }
