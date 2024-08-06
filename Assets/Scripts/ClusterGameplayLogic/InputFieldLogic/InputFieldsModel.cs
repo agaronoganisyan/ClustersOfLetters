@@ -10,6 +10,8 @@ namespace ClusterGameplayLogic.InputFieldLogic
 
         private const int BaseNumberOfInputFields = 4;
         
+        private bool _isSetuped;
+        
         public InputFieldsModel(DiContainer container)
         {
             _container = container;
@@ -19,22 +21,39 @@ namespace ClusterGameplayLogic.InputFieldLogic
         
         public void Setup(List<InputFieldModel> inputFields = null)
         {
-            InputFields.Clear();
-
-            if (inputFields != null)
+            if (_isSetuped)
             {
-                for (int i = 0; i < inputFields.Count; i++)
+                for (int i = 0; i < InputFields.Count; i++)
                 {
-                    InputFields.Add(new InputFieldViewModel(inputFields[i],_container));
+                    InputFields[i].Cleanup();
                 }
             }
             else
             {
-                for (int i = 0; i < BaseNumberOfInputFields; i++)
+                InputFields.Clear();
+
+                if (inputFields != null)
                 {
-                    InputFields.Add(new InputFieldViewModel(new InputFieldModel(), _container));
+                    for (int i = 0; i < inputFields.Count; i++)
+                    {
+                        InputFields.Add(new InputFieldViewModel(inputFields[i],_container));
+                    }
                 }
+                else
+                {
+                    for (int i = 0; i < BaseNumberOfInputFields; i++)
+                    {
+                        InputFields.Add(new InputFieldViewModel(new InputFieldModel(), _container));
+                    }
+                }
+
+                SetAsSetuped();
             }
+        }
+        
+        private void SetAsSetuped()
+        {
+            _isSetuped = true;
         }
     }
 }

@@ -37,6 +37,11 @@ namespace ClusterGameplayLogic.InputFieldLogic
             Clusters.Remove(cluster);
         }
 
+        public void Cleanup()
+        {
+            Clusters.Clear();
+        }
+        
         public string GetWord()
         {
             StringBuilder wordBuilder = new StringBuilder();

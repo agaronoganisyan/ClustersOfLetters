@@ -49,7 +49,7 @@ namespace Infrastructure.GameStateLogic
 
         public override async UniTask Exit()
         {
-            _inputFieldFactory.ReturnAllBack();
+            //_inputFieldFactory.ReturnAllBack();
             _clustersViewFactory.ReturnAllBack();
         }
     }

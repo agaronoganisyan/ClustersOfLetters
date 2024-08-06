@@ -54,5 +54,14 @@ namespace ClusterGameplayLogic.InputFieldLogic
             _parentTransform.Value = parent;
             _position.Value = position;
         }
+
+        public void Cleanup()
+        {
+            _isFull = false;
+            _currentLength = 0;
+            Model.Cleanup();
+            _clusters.Clear();
+            OnChanged?.Execute(_clusters);
+        }
     }
 }
