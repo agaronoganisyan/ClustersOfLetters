@@ -15,6 +15,7 @@ using ClusterGameplayLogic.WordLogic;
 using ClusterGameplayLogic.WordLogic.ProviderLogic;
 using Infrastructure.AssetManagementLogic;
 using Infrastructure.DataProviderLogic;
+using Infrastructure.GameHandlerLogic;
 using Infrastructure.GameStateLogic;
 using Infrastructure.PoolLogic;
 using Infrastructure.UILogic.DebriefingLogic;
@@ -38,6 +39,7 @@ namespace Infrastructure
             Container.Bind<IDataProvider>().To<DataProvider>().FromNew().AsSingle();
             Container.Bind<IGameValidator>().To<GameValidator>().FromNew().AsSingle();
             Container.Bind<IGameStateMachine>().To<GameStateMachine>().FromNew().AsSingle();
+            Container.Bind<IGameHandler>().To<GameHandler>().FromNew().AsSingle();
             Container.Bind<IUIFactory>().To<UIFactory>().FromNew().AsSingle();
             Container.Bind<IUIStateMachine>().To<UIStateMachine>().FromNew().AsSingle();
             

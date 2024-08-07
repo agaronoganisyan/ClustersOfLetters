@@ -1,3 +1,4 @@
+using Infrastructure.GameHandlerLogic;
 using Infrastructure.GameStateLogic;
 using Infrastructure.UILogic.LobbyLogic.SettingsLogic;
 using Zenject;
@@ -7,18 +8,18 @@ namespace Infrastructure.UILogic.LobbyLogic.PanelLogic
     public class LobbyPanelViewModel
     {
         private SettingsPanelViewModel _settingsPanelViewModel;
-        protected IGameStateMachine _gameStateMachine;
+        protected IGameHandler _gameHandler;
         
-        public void Setup(DiContainer container)
+        public LobbyPanelViewModel(DiContainer container)
         {
-            _gameStateMachine = container.Resolve<IGameStateMachine>();
+            _gameHandler = container.Resolve<IGameHandler>();
             
             _settingsPanelViewModel = container.Resolve<SettingsPanelViewModel>();
         }
         
         public void StartMatch()
         {
-            _gameStateMachine.SwitchState(GameState.Gameplay);
+            _gameHandler.SwitchState(GameState.Gameplay);
         }
         
         public void OpenSettings()
