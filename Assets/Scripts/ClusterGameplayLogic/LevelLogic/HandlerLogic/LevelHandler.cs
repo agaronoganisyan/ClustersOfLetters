@@ -1,4 +1,5 @@
 using ClusterGameplayLogic.ValidatorLogic;
+using Infrastructure.GameHandlerLogic;
 using Infrastructure.GameStateLogic;
 using Zenject;
 using UniRx;
@@ -8,14 +9,14 @@ namespace ClusterGameplayLogic.LevelLogic.HandlerLogic
     public class LevelHandler : ILevelHandler
     {
         private IGameValidator _gameValidator;
-        private IGameStateMachine _gameStateMachine;
+        private IGameHandler _gameHandler;
         
         public LevelHandler(DiContainer container)
         {
             _gameValidator = container.Resolve<IGameValidator>();
-            _gameStateMachine = container.Resolve<IGameStateMachine>();
+            _gameHandler = container.Resolve<IGameHandler>();
 
-            _gameValidator.OnResultValidated.Subscribe((value) => _gameStateMachine.SwitchState(GameState.Debriefing));
+            _gameValidator.OnResultValidated.Subscribe((value) => _gameHandler.SwitchState(GameState.Debriefing));
         }
     }
 }
