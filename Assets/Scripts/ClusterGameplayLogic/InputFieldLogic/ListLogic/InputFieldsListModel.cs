@@ -21,34 +21,26 @@ namespace ClusterGameplayLogic.InputFieldLogic.ListLogic
         
         public void Setup(List<InputFieldModel> inputFields = null)
         {
-            if (_isSetuped)
+            if (_isSetuped) return;
+
+            InputFields.Clear();
+
+            if (inputFields != null && inputFields.Count > 0)
             {
-                for (int i = 0; i < InputFields.Count; i++)
+                for (int i = 0; i < inputFields.Count; i++)
                 {
-                    InputFields[i].Cleanup();
+                    InputFields.Add(inputFields[i]);
                 }
             }
             else
             {
-                InputFields.Clear();
-
-                if (inputFields != null && inputFields.Count > 0)
+                for (int i = 0; i < BaseNumberOfInputFields; i++)
                 {
-                    for (int i = 0; i < inputFields.Count; i++)
-                    {
-                        InputFields.Add(inputFields[i]);
-                    }
+                    InputFields.Add(new InputFieldModel());
                 }
-                else
-                {
-                    for (int i = 0; i < BaseNumberOfInputFields; i++)
-                    {
-                        InputFields.Add(new InputFieldModel());
-                    }
-                }
-
-                SetAsSetuped();
             }
+
+            SetAsSetuped();
         }
         
         private void SetAsSetuped()
