@@ -1,5 +1,8 @@
+using System;
+
 namespace ClusterGameplayLogic.ClusterLogic
 {
+    [Serializable]
     public class ClusterModel
     {
         public string Value { get; }

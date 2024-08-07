@@ -1,22 +1,22 @@
 using System.Collections.Generic;
 using Zenject;
 
-namespace ClusterGameplayLogic.InputFieldLogic
+namespace ClusterGameplayLogic.InputFieldLogic.ListLogic
 {
-    public class InputFieldsModel
+    public class InputFieldsListModel
     {
         private readonly DiContainer _container;
-        public List<InputFieldViewModel> InputFields { get; }
+        public List<InputFieldModel> InputFields { get; }
 
         private const int BaseNumberOfInputFields = 4;
         
         private bool _isSetuped;
         
-        public InputFieldsModel(DiContainer container)
+        public InputFieldsListModel(DiContainer container)
         {
             _container = container;
             
-            InputFields = new List<InputFieldViewModel>();
+            InputFields = new List<InputFieldModel>();
         }
         
         public void Setup(List<InputFieldModel> inputFields = null)
@@ -32,18 +32,18 @@ namespace ClusterGameplayLogic.InputFieldLogic
             {
                 InputFields.Clear();
 
-                if (inputFields != null)
+                if (inputFields != null && inputFields.Count > 0)
                 {
                     for (int i = 0; i < inputFields.Count; i++)
                     {
-                        InputFields.Add(new InputFieldViewModel(inputFields[i],_container));
+                        InputFields.Add(inputFields[i]);
                     }
                 }
                 else
                 {
                     for (int i = 0; i < BaseNumberOfInputFields; i++)
                     {
-                        InputFields.Add(new InputFieldViewModel(new InputFieldModel(), _container));
+                        InputFields.Add(new InputFieldModel());
                     }
                 }
 

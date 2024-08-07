@@ -1,5 +1,4 @@
 using UniRx;
-using Unity.VisualScripting;
 using Zenject;
 
 namespace ClusterGameplayLogic.InputFieldLogic.ListLogic
@@ -11,27 +10,47 @@ namespace ClusterGameplayLogic.InputFieldLogic.ListLogic
         public IReadOnlyReactiveCollection<InputFieldViewModel> InputFields => _inputFields;
         private ReactiveCollection<InputFieldViewModel> _inputFields;
 
-        private InputFieldsModel _inputFieldsModel;
+        private InputFieldsListModel _inputFieldsListModel;
         
+        private bool _isSetuped;
+        private DiContainer _container;
+
         private InputFieldsListViewModel(DiContainer container)
         {
-            _inputFieldsModel = container.Resolve<InputFieldsModel>();
+            _container = container;
+            _inputFieldsListModel = _container.Resolve<InputFieldsListModel>();
             
             _inputFields = new ReactiveCollection<InputFieldViewModel>();
-
             OnSetuped = new ReactiveCommand<IReadOnlyReactiveCollection<InputFieldViewModel>>();
         }
 
         public void Setup()
         {
-            _inputFields.Clear();
-            
-            for (int i = 0; i < _inputFieldsModel.InputFields.Count; i++)
+            if (_isSetuped)
             {
-                _inputFields.Add(_inputFieldsModel.InputFields[i]);
+                for (int i = 0; i < _inputFields.Count; i++)
+                {
+                    _inputFields[i].Cleanup();
+                }
             }
+            else
+            {
+                _inputFields.Clear();
             
-            OnSetuped?.Execute(_inputFields);
+                for (int i = 0; i < _inputFieldsListModel.InputFields.Count; i++)
+                {
+                    _inputFields.Add(new InputFieldViewModel(_inputFieldsListModel.InputFields[i], _container));
+                }
+            
+                OnSetuped?.Execute(_inputFields);
+
+                SetAsSetuped();   
+            }
+        }
+        
+        private void SetAsSetuped()
+        {
+            _isSetuped = true;
         }
     }
 }

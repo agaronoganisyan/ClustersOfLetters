@@ -9,7 +9,7 @@ namespace Infrastructure.UILogic.DebriefingLogic.PanelLogic
 {
     public class DebriefingPanelViewModel
     {
-        public ReactiveCommand<List<InputFieldViewModel>> OnDisplayFields { get; }
+        public ReactiveCommand<List<InputFieldModel>> OnDisplayFields { get; }
         
         private IGameStateMachine _gameStateMachine;
         private IGameValidator _gameValidator;
@@ -18,7 +18,7 @@ namespace Infrastructure.UILogic.DebriefingLogic.PanelLogic
 
         public DebriefingPanelViewModel(DiContainer container)
         {
-            OnDisplayFields = new ReactiveCommand<List<InputFieldViewModel>>();
+            OnDisplayFields = new ReactiveCommand<List<InputFieldModel>>();
             _disposable = new CompositeDisposable();
         }
         
@@ -26,7 +26,7 @@ namespace Infrastructure.UILogic.DebriefingLogic.PanelLogic
         {
             _gameStateMachine = container.Resolve<IGameStateMachine>();
             
-            _gameValidator= container.Resolve<IGameValidator>();
+            _gameValidator = container.Resolve<IGameValidator>();
             
             _gameValidator.OnResultValidated.
                 Subscribe((value) => OnDisplayFields?.Execute(value)).AddTo(_disposable);
@@ -38,7 +38,7 @@ namespace Infrastructure.UILogic.DebriefingLogic.PanelLogic
             _gameStateMachine.SwitchState(GameState.Lobby);
         }
 
-        public List<InputFieldViewModel> GetFieldsForDisplay()
+        public List<InputFieldModel> GetFieldsForDisplay()
         {
             return _gameValidator.GetValidatedResult();
         }

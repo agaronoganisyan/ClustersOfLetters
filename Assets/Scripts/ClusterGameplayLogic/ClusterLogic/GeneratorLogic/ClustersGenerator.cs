@@ -11,15 +11,19 @@ namespace ClusterGameplayLogic.ClusterLogic.GeneratorLogic
     {
         private WordsModel _wordsModel;
 
+        private const int _minValue = 2;
+        private const int _maxValue = 4;
+        private Random _random;
+        
         public ClustersGenerator(DiContainer container)
         {
             _wordsModel = container.Resolve<WordsModel>();
+            _random = new Random();
         }
         
         public List<ClusterModel> GenerateRandomClusters()
         {
             List<ClusterModel> clusters = new List<ClusterModel>();
-            Random random = new Random();
 
             foreach (var word in _wordsModel.Words)
             {
@@ -27,12 +31,12 @@ namespace ClusterGameplayLogic.ClusterLogic.GeneratorLogic
         
                 while (remainingLetters.Length > 0)
                 {
-                    int maxClusterLength = Math.Min(4, remainingLetters.Length);
+                    int maxClusterLength = Math.Min(_maxValue, remainingLetters.Length);
                     int clusterLength = remainingLetters.Length switch
                     {
                         3 => 3,
                         4 => 2,
-                        _ => random.Next(2, maxClusterLength + 1)
+                        _ => _random.Next(_minValue, maxClusterLength + 1)
                     };
 
                     string clusterValue = remainingLetters.ToString(0, clusterLength);
@@ -41,7 +45,7 @@ namespace ClusterGameplayLogic.ClusterLogic.GeneratorLogic
                 }
             }
 
-            Shuffle(clusters, random);
+            Shuffle(clusters, _random);
             
             return clusters;
         }

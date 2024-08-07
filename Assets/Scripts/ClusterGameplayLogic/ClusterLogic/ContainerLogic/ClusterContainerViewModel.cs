@@ -9,9 +9,13 @@ namespace ClusterGameplayLogic.ClusterLogic.ContainerLogic
         protected ReactiveCollection<ClusterViewModel> _clusters;
         
         public ReactiveCommand<IReadOnlyReactiveCollection<ClusterViewModel>> OnChanged;
+
+        protected DiContainer _container;
         
         public ClusterContainerViewModel(DiContainer container)
         {
+            _container = container;
+            
             _clusters = new ReactiveCollection<ClusterViewModel>();
             OnChanged = new ReactiveCommand<IReadOnlyReactiveCollection<ClusterViewModel>>();
         }

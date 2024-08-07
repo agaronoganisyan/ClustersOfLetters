@@ -68,8 +68,11 @@ namespace ClusterGameplayLogic.ClusterLogic
         
         public void OnBeginDrag(PointerEventData eventData)
         {
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(_rectTransform,
+                eventData.position, eventData.pressEventCamera, out Vector2 localMousePosition);
+
             _image.raycastTarget = false;
-            _viewModel.BeginDrag();
+            _viewModel.BeginDrag(localMousePosition);
         }
         
         public void OnDrag(PointerEventData eventData)

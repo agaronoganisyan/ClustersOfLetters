@@ -12,12 +12,12 @@ namespace ClusterGameplayLogic.WordLogic
             Words = new List<string>();
         }
 
-        public void Setup(LevelModel model)
+        public void Setup(LevelData data)
         {
             Words.Clear();
-            for (int i = 0; i < model.Words.Length; i++)
+            for (int i = 0; i < data.Words.Length; i++)
             {
-                Words.Add(model.Words[i]);
+                Words.Add(data.Words[i]);
             }
         }
 

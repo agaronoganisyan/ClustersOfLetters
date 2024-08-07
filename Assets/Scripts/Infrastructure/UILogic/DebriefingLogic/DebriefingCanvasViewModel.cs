@@ -1,11 +1,12 @@
 using ClusterGameplayLogic.InputFieldLogic;
+using ClusterGameplayLogic.InputFieldLogic.ListLogic;
 using Infrastructure.UILogic.ViewModelLogic;
 
 namespace Infrastructure.UILogic.DebriefingLogic
 {
     public class DebriefingCanvasViewModel : CanvasViewModel
     {
-        private InputFieldsModel _inputFieldsModel;
+        private InputFieldsListModel _inputFieldsListModel;
         
         
         

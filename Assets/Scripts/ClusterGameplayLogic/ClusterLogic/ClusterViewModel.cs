@@ -20,7 +20,9 @@ namespace ClusterGameplayLogic.ClusterLogic
         public ReactiveCommand<PointerEventData> OnDragFinished { get; }
 
         public ClusterContainerViewModel ClusterContainerViewModel { get; private set; }
-        
+
+        public int DraggedCellIndex { get; private set; }
+
         private GameplayCanvasViewModel _gameplayCanvasViewModel;
 
         private Transform _containerParentTransform;
@@ -91,10 +93,10 @@ namespace ClusterGameplayLogic.ClusterLogic
             _position.Value = position;
         }
         
-        public void BeginDrag()
+        public void BeginDrag(Vector2 mousePosition)
         {
             SetParent(_gameplayCanvasViewModel.View.transform);
-
+            DraggedCellIndex = GetCellIndexUnderMouse(mousePosition);
             OnDragStarted?.Execute(this);
         }
         
@@ -110,6 +112,20 @@ namespace ClusterGameplayLogic.ClusterLogic
             _containerIsChanged = false;
             
             OnDragFinished?.Execute(eventData);
+        }
+        
+        private int GetCellIndexUnderMouse(Vector2 localPosition)
+        {
+            float xPosition = localPosition.x;
+        
+            int cellIndex = Mathf.FloorToInt(xPosition / ClusterStaticData.BaseLength);
+        
+            if (cellIndex < 0 || cellIndex >= Model.Length)
+            {
+                return -1;
+            }
+
+            return cellIndex;
         }
     }
 }

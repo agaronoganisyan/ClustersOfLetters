@@ -29,7 +29,7 @@ namespace ClusterGameplayLogic.InputFieldLogic
             _disposable = new CompositeDisposable();
 
             _viewModel = viewModel;
-            _viewModel.OnChanged.Subscribe((value) => ReorderField(_viewModel.Clusters)).AddTo(_disposable);
+            _viewModel.OnChanged.Subscribe((value) => ReorderField(value)).AddTo(_disposable);
             
             _viewModel.ParentTransform.Subscribe((value) => SetParent(value)).AddTo(_disposable);
             _viewModel.Position.Subscribe((value) => SetPosition(value)).AddTo(_disposable);

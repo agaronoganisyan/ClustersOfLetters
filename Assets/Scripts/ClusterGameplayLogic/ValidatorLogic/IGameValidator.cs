@@ -6,8 +6,8 @@ namespace ClusterGameplayLogic.ValidatorLogic
 {
     public interface IGameValidator
     {
-        ReactiveCommand<List<InputFieldViewModel>> OnResultValidated { get; }
+        ReactiveCommand<List<InputFieldModel>> OnResultValidated { get; }
         void Validate();
-        List<InputFieldViewModel> GetValidatedResult();
+        List<InputFieldModel> GetValidatedResult();
     }
 }

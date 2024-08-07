@@ -16,7 +16,7 @@ namespace ClusterGameplayLogic.WordLogic.ProviderLogic
         
         private IAssetsProvider _assetsProvider;
         private WordsModel _wordsModel;
-        private LevelsModel _levelsModel;
+        private LevelsData _levelsData;
         
         public WordsProvider(DiContainer container)
         {
@@ -26,13 +26,13 @@ namespace ClusterGameplayLogic.WordLogic.ProviderLogic
 
         public async UniTask Provide()
         {
-            if (_levelsModel == null)
+            if (_levelsData == null)
             {
                 TextAsset jsonFile = await _assetsProvider.Load<TextAsset>(LevelsDataAddress);
-                _levelsModel = JsonUtility.FromJson<LevelsModel>(jsonFile.text);   
+                _levelsData = JsonUtility.FromJson<LevelsData>(jsonFile.text);   
             }
             
-            _wordsModel.Setup(_levelsModel.Levels[0]);
+            _wordsModel.Setup(_levelsData.Levels[0]);
         }
     }
 }

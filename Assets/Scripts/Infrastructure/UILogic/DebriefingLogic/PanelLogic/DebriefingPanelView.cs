@@ -1,8 +1,5 @@
-using System;
 using System.Collections.Generic;
 using ClusterGameplayLogic.InputFieldLogic;
-using ClusterGameplayLogic.ValidatorLogic;
-using Infrastructure.GameStateLogic;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -33,11 +30,11 @@ namespace Infrastructure.UILogic.DebriefingLogic.PanelLogic
             DisplayFields(_viewModel.GetFieldsForDisplay());
         }
 
-        private void DisplayFields(List<InputFieldViewModel> inputFields)
+        private void DisplayFields(List<InputFieldModel> inputFields)
         {
             for (int i = 0; i < _wordTexts.Length; i++)
             {
-                _wordTexts[i].text = inputFields[i].Model.GetWord();
+                _wordTexts[i].text = inputFields[i].GetWord();
             }
         }
         

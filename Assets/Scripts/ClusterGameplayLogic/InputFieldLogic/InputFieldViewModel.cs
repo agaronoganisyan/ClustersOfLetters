@@ -14,10 +14,10 @@ namespace ClusterGameplayLogic.InputFieldLogic
         private ReactiveProperty<Transform> _parentTransform;
         public IReadOnlyReactiveProperty<Vector2> Position => _position;
         private ReactiveProperty<Vector2> _position;
+
         
-        private bool _isFull;
+        //private bool _isFull;
         private int _currentLength;
-        private const int MaxLength = 6;
 
         public InputFieldViewModel(InputFieldModel model, DiContainer container) : base(container)
         {
@@ -29,8 +29,8 @@ namespace ClusterGameplayLogic.InputFieldLogic
 
         public override bool IsCanAddCluster(ClusterViewModel clusterViewModel)
         {
-            if (_isFull) return false;
-            if (clusterViewModel.Model.Length + _currentLength > MaxLength) return false;
+            //if (_isFull) return false;
+            if (clusterViewModel.Model.Length + _currentLength > InputFieldStaticData.BaseLength) return false;
             
             return true;
         }
@@ -39,7 +39,8 @@ namespace ClusterGameplayLogic.InputFieldLogic
         {
             base.AddCluster(clusterViewModel);
             _currentLength += clusterViewModel.Model.Length;
-            Model.AddCluster(clusterViewModel.Model);
+            Model.AddCluster(clusterViewModel.Model); 
+            //как добавлять кластеры в список ячеек
         }
 
         public override void RemoveCluster(ClusterViewModel clusterViewModel)
@@ -57,7 +58,7 @@ namespace ClusterGameplayLogic.InputFieldLogic
 
         public void Cleanup()
         {
-            _isFull = false;
+            //_isFull = false;
             _currentLength = 0;
             Model.Cleanup();
             _clusters.Clear();

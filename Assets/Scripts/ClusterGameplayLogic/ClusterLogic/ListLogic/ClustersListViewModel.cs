@@ -8,11 +8,11 @@ namespace ClusterGameplayLogic.ClusterLogic.ListLogic
     {
         public ReactiveCommand<IReadOnlyReactiveCollection<ClusterViewModel>> OnSetuped;
         
-        private ClustersModel _clustersModel;
+        private ClustersListModel _clustersModel;
         
         public ClustersListViewModel(DiContainer container) : base(container)
         {
-            _clustersModel = container.Resolve<ClustersModel>();
+            _clustersModel = container.Resolve<ClustersListModel>();
             
             OnSetuped = new ReactiveCommand<IReadOnlyReactiveCollection<ClusterViewModel>>();
         }
@@ -23,8 +23,9 @@ namespace ClusterGameplayLogic.ClusterLogic.ListLogic
             
             for (int i = 0; i < _clustersModel.Clusters.Count; i++)
             {
-                _clusters.Add(_clustersModel.Clusters[i]);
-                _clustersModel.Clusters[i].SetInitClusterContainer(this);
+                ClusterViewModel viewModel = new ClusterViewModel(_clustersModel.Clusters[i], _container);
+                _clusters.Add(viewModel);
+                viewModel.SetInitClusterContainer(this);
             }
 
             OnSetuped?.Execute(_clusters);
